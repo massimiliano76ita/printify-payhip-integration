@@ -1,0 +1,310 @@
+// printify-integration.js - CODICE COMPLETO PER 19 PRODOTTI
+class PrintifyIntegration {
+    constructor(config) {
+        this.config = config;
+    }
+
+    async fetchPrintifyProducts() {
+        try {
+            console.log('🔄 Caricamento prodotti da Printify...');
+            
+            // Usiamo l'API reale di Printify
+            const response = await fetch(
+                `https://api.printify.com/v1/shops/${this.config.printify.shopId}/products.json`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${this.config.printify.apiKey}`,
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('✅ Prodotti API recuperati:', data.data?.length || 0);
+                return data;
+            } else {
+                throw new Error(`Errore API: ${response.status}`);
+            }
+            
+        } catch (error) {
+            console.error('❌ Errore API Printify:', error);
+            // Fallback ai prodotti hardcoded
+            return this.getHardcodedProducts();
+        }
+    }
+
+    getHardcodedProducts() {
+        return {
+            data: [
+                {
+                    id: '675444378c54bcc3f70cb121',
+                    title: 'Red shoes',
+                    description: 'Scarpe rosse di alta qualità, design moderno e comfort garantito',
+                    images: [{ src: 'https://via.placeholder.com/400x400/DC2626/FFFFFF?text=Red+Shoes', alt: 'Red shoes' }],
+                    variants: [{ price: 4800 }]
+                },
+                {
+                    id: '675444a987da4c53280b785a',
+                    title: 'Red shoes 2', 
+                    description: 'Secondo modello di scarpe rosse, eleganti e versatili',
+                    images: [{ src: 'https://via.placeholder.com/400x400/DC2626/FFFFFF?text=Red+Shoes+2', alt: 'Red shoes 2' }],
+                    variants: [{ price: 5900 }]
+                },
+                {
+                    id: '6754451287da4c53280b7878',
+                    title: 'Blue shoes',
+                    description: 'Scarpe blu classiche, perfette per ogni occasione',
+                    images: [{ src: 'https://via.placeholder.com/400x400/2563EB/FFFFFF?text=Blue+Shoes', alt: 'Blue shoes' }],
+                    variants: [{ price: 4800 }]
+                },
+                {
+                    id: '67544553a936d515e705f4ef',
+                    title: 'Blue shoes 2',
+                    description: 'Scarpe blu moderne con design innovativo',
+                    images: [{ src: 'https://via.placeholder.com/400x400/2563EB/FFFFFF?text=Blue+Shoes+2', alt: 'Blue shoes 2' }],
+                    variants: [{ price: 5900 }]
+                },
+                {
+                    id: '6754458d3c6e04fe3706d317',
+                    title: 'Soft blue shoes',
+                    description: 'Scarpe azzurre delicate, comfort eccezionale',
+                    images: [{ src: 'https://via.placeholder.com/400x400/60A5FA/FFFFFF?text=Soft+Blue+Shoes', alt: 'Soft blue shoes' }],
+                    variants: [{ price: 4800 }]
+                },
+                {
+                    id: '675445d71277de08e901ff61',
+                    title: 'Soft blue shoes 2',
+                    description: 'Secondo modello di scarpe azzurre, eleganti e comode',
+                    images: [{ src: 'https://via.placeholder.com/400x400/60A5FA/FFFFFF?text=Soft+Blue+Shoes+2', alt: 'Soft blue shoes 2' }],
+                    variants: [{ price: 5900 }]
+                },
+                {
+                    id: '67544c2d7215d2bd0d0960cd',
+                    title: 'Omaggio a Mario Schifano',
+                    description: 'Scarpe artistiche ispirate a Mario Schifano, edizione limitata',
+                    images: [{ src: 'https://via.placeholder.com/400x400/7C3AED/FFFFFF?text=Schifano+1', alt: 'Omaggio a Mario Schifano' }],
+                    variants: [{ price: 5900 }]
+                },
+                {
+                    id: '6754535c3c6e04fe3706d717',
+                    title: 'Omaggio a Mario Schifano 2',
+                    description: 'Seconda edizione delle scarpe artistiche Mario Schifano',
+                    images: [{ src: 'https://via.placeholder.com/400x400/7C3AED/FFFFFF?text=Schifano+2', alt: 'Omaggio a Mario Schifano 2' }],
+                    variants: [{ price: 4800 }]
+                },
+                {
+                    id: '67545881c7ed2955a30253e5',
+                    title: 'Omaggio a Mario Schifano 3',
+                    description: 'Terza edizione esclusiva delle scarpe Mario Schifano',
+                    images: [{ src: 'https://via.placeholder.com/400x400/7C3AED/FFFFFF?text=Schifano+3', alt: 'Omaggio a Mario Schifano 3' }],
+                    variants: [{ price: 5900 }]
+                },
+                {
+                    id: '6754ab2c1277de08e9021b42',
+                    title: 'Japanese Art',
+                    description: 'Scarpe con design giapponese tradizionale, arte e cultura',
+                    images: [{ src: 'https://via.placeholder.com/400x400/EF4444/FFFFFF?text=Japanese+Art+1', alt: 'Japanese Art' }],
+                    variants: [{ price: 5900 }]
+                },
+                {
+                    id: '6754b0c71277de08e9021db2',
+                    title: 'Japanese art 2',
+                    description: 'Secondo modello di scarpe con arte giapponese',
+                    images: [{ src: 'https://via.placeholder.com/400x400/EF4444/FFFFFF?text=Japanese+Art+2', alt: 'Japanese art 2' }],
+                    variants: [{ price: 5900 }]
+                },
+                {
+                    id: '6754b21b60377223b20d1e26',
+                    title: 'Japanese art 3',
+                    description: 'Terza edizione delle scarpe con motivi giapponesi',
+                    images: [{ src: 'https://via.placeholder.com/400x400/EF4444/FFFFFF?text=Japanese+Art+3', alt: 'Japanese art 3' }],
+                    variants: [{ price: 5900 }]
+                },
+                {
+                    id: '6754c1287215d2bd0d098139',
+                    title: 'Japanese art 4',
+                    description: 'Quarta edizione delle scarpe artistiche giapponesi',
+                    images: [{ src: 'https://via.placeholder.com/400x400/EF4444/FFFFFF?text=Japanese+Art+4', alt: 'Japanese art 4' }],
+                    variants: [{ price: 4800 }]
+                },
+                {
+                    id: '6754cb988c54bcc3f70cd6fa',
+                    title: 'Japanese art 5',
+                    description: 'Quinta edizione limitata delle scarpe giapponesi',
+                    images: [{ src: 'https://via.placeholder.com/400x400/EF4444/FFFFFF?text=Japanese+Art+5', alt: 'Japanese art 5' }],
+                    variants: [{ price: 4800 }]
+                },
+                {
+                    id: '67554518c7ed2955a302950e',
+                    title: 'Omaggio a Mario Schifano 4',
+                    description: 'Quarta edizione delle scarpe Mario Schifano, design unico',
+                    images: [{ src: 'https://via.placeholder.com/400x400/7C3AED/FFFFFF?text=Schifano+4', alt: 'Omaggio a Mario Schifano 4' }],
+                    variants: [{ price: 5900 }]
+                },
+                {
+                    id: '67554d46a936d515e7063fc0',
+                    title: 'Yellow shoes',
+                    description: 'Scarpe gialle vivaci, perfette per look estivi',
+                    images: [{ src: 'https://via.placeholder.com/400x400/FBBF24/000000?text=Yellow+Shoes', alt: 'Yellow shoes' }],
+                    variants: [{ price: 4800 }]
+                },
+                {
+                    id: '67554cdc8c54bcc3f70cf94c',
+                    title: 'Yellow shoes 2',
+                    description: 'Secondo modello di scarpe gialle, design contemporaneo',
+                    images: [{ src: 'https://via.placeholder.com/400x400/FBBF24/000000?text=Yellow+Shoes+2', alt: 'Yellow shoes 2' }],
+                    variants: [{ price: 5900 }]
+                },
+                {
+                    id: '67fc060df996a1e6fc1018fd',
+                    title: 'Arabic shoes',
+                    description: 'Scarpe con motivi arabi, arte e tradizione orientale',
+                    images: [{ src: 'https://via.placeholder.com/400x400/059669/FFFFFF?text=Arabic+Shoes+1', alt: 'Arabic shoes' }],
+                    variants: [{ price: 5900 }]
+                },
+                {
+                    id: '67fc09eccbb50c39b702aa00',
+                    title: 'Arabic shoes 2',
+                    description: 'Secondo modello di scarpe con design arabo tradizionale',
+                    images: [{ src: 'https://via.placeholder.com/400x400/059669/FFFFFF?text=Arabic+Shoes+2', alt: 'Arabic shoes 2' }],
+                    variants: [{ price: 5900 }]
+                }
+            ]
+        };
+    }
+
+    transformProducts(products) {
+        if (!products.data || !Array.isArray(products.data)) {
+            return this.getHardcodedProducts().data.map(p => this.transformProduct(p));
+        }
+
+        return products.data.map(product => this.transformProduct(product));
+    }
+
+    transformProduct(product) {
+        return {
+            id: product.id,
+            title: product.title,
+            description: product.description || 'Scarpe di alta qualità, design italiano',
+            images: product.images || [{ src: 'https://via.placeholder.com/400x400/6B7280/FFFFFF?text=Immagine+Scarpe', alt: product.title }],
+            price: this.calculateMinPrice(product.variants),
+            variants: product.variants?.length || 1,
+            url: this.getPayhipLink(product.id)
+        };
+    }
+
+    getPayhipLink(printifyProductId) {
+        const productMap = {
+            '675444378c54bcc3f70cb121': 'https://fugace.eu/b/snO7G',
+            '675444a987da4c53280b785a': 'https://fugace.eu/b/RW7sB',
+            '6754451287da4c53280b7878': 'https://fugace.eu/b/kMpeR',
+            '67544553a936d515e705f4ef': 'https://fugace.eu/b/yG18P',
+            '6754458d3c6e04fe3706d317': 'https://fugace.eu/b/Ho7M6',
+            '675445d71277de08e901ff61': 'https://fugace.eu/b/2QRh1',
+            '67544c2d7215d2bd0d0960cd': 'https://fugace.eu/b/UbVjN',
+            '6754535c3c6e04fe3706d717': 'https://fugace.eu/b/wLp5G',
+            '67545881c7ed2955a30253e5': 'https://fugace.eu/b/vJToL',
+            '6754ab2c1277de08e9021b42': 'https://fugace.eu/b/uK1qs',
+            '6754b0c71277de08e9021db2': 'https://fugace.eu/b/Ompb7',
+            '6754b21b60377223b20d1e26': 'https://fugace.eu/b/T4qQS',
+            '6754c1287215d2bd0d098139': 'https://fugace.eu/b/Ho7M6',
+            '6754cb988c54bcc3f70cd6fa': 'https://fugace.eu/b/RdnkK',
+            '67554518c7ed2955a302950e': 'https://fugace.eu/b/d7DGX',
+            '67554d46a936d515e7063fc0': 'https://fugace.eu/b/ApJ2K',
+            '67554cdc8c54bcc3f70cf94c': 'https://fugace.eu/b/0lnqs',
+            '67fc060df996a1e6fc1018fd': 'https://fugace.eu/b/V17Xk',
+            '67fc09eccbb50c39b702aa00': 'https://fugace.eu/b/xJrkj'
+        };
+        
+        return productMap[printifyProductId] || 'https://fugace.eu';
+    }
+
+    calculateMinPrice(variants) {
+        if (!variants || !Array.isArray(variants)) return '0.00';
+        const minPrice = Math.min(...variants.map(v => v.price || 0));
+        return (minPrice / 100).toFixed(2);
+    }
+
+    displayProducts(products) {
+        const container = document.getElementById('printify-products-container');
+        
+        if (!container) {
+            console.error('Container non trovato!');
+            return;
+        }
+
+        if (products.length === 0) {
+            container.innerHTML = `
+                <div class="no-products">
+                    <p>Nessun prodotto trovato</p>
+                    <p>Controlla la configurazione dello shop</p>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = products.map(product => `
+            <div class="printify-product">
+                <div class="product-image">
+                    <img src="${product.images[0]?.src}" 
+                         alt="${product.title}"
+                         loading="lazy"
+                         onerror="this.src='https://via.placeholder.com/400x400/6B7280/FFFFFF?text=Immagine+Non+Disponibile'">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">${product.title}</h3>
+                    <p class="product-description">${this.truncateText(product.description, 100)}</p>
+                    <div class="product-price">€${product.price}</div>
+                    <a href="${product.url}" class="buy-button" target="_blank">
+                        Acquista Ora
+                    </a>
+                </div>
+            </div>
+        `).join('');
+
+        console.log('✅ Prodotti visualizzati:', products.length);
+    }
+
+    truncateText(text, length) {
+        if (!text) return 'Scarpe di alta qualità, design esclusivo e comfort garantito. Materiali premium e lavorazione artigianale.';
+        return text.length > length ? text.substring(0, length) + '...' : text;
+    }
+
+    showError(message) {
+        const container = document.getElementById('printify-products-container');
+        if (container) {
+            container.innerHTML = `
+                <div class="error-message">
+                    <p>⚠️ ${message}</p>
+                    <button onclick="location.reload()" style="padding: 10px 20px; margin-top: 10px; cursor: pointer; background: #2c5aa0; color: white; border: none; border-radius: 4px;">
+                        Riprova
+                    </button>
+                </div>
+            `;
+        }
+    }
+
+    async init() {
+        console.log('🚀 Inizializzazione Catalogo Scarpe...');
+        
+        const container = document.getElementById('printify-products-container');
+        if (container) {
+            container.innerHTML = '<div class="loading">🔄 Caricamento catalogo scarpe...</div>';
+        }
+
+        try {
+            const products = await this.fetchPrintifyProducts();
+            const transformedProducts = this.transformProducts(products);
+            this.displayProducts(transformedProducts);
+        } catch (error) {
+            this.showError('Errore nel caricamento del catalogo');
+        }
+    }
+}
+
+// Auto-inizializzazione
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('📄 Catalogo Scarpe loaded');
+});
